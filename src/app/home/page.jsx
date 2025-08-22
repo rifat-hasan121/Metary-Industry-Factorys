@@ -1,6 +1,7 @@
 import ConstructionSection from '@/components/ConstructionSection';
 import HeroSection from '@/components/HeroSection';
 import MetarySection from '@/components/MetarySection';
+import ServicesCards from '@/components/ServecesCards';
 import ServiceCardsSection from '@/components/ServiceCardsSection';
 import ServiceSection from '@/components/ServiceSection';
 import SolutionsSection from '@/components/SolutionsSection';
@@ -21,6 +22,9 @@ const Root = () => {
             </section>
             <section>
                 <ServiceSection/>
+            </section>
+            <section>
+                <ServicesCards/>
             </section>
             <section>
                 <SolutionsSection/>

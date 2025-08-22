@@ -1,5 +1,4 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react"
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -70,11 +69,11 @@ export default function Navbar() {
             Sign In
             </button>
           </Link>
-          {/* <Link href="/login"> */}
-          <button className="btn bg-[#fc5220] rounded-xl text-white text-md md:text-lg " onClick={() => signIn()}>
+          <Link href="/login">
+          <button className="btn bg-[#fc5220] rounded-xl text-white text-md md:text-lg ">
             LogIn
             </button>
-          {/* </Link> */}
+          </Link>
         </div>
       </div>
     </div>
