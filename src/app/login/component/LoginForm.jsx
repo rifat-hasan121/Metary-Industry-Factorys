@@ -1,17 +1,53 @@
+import GoogleLogin from '@/components/GoogleLogin';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React from 'react'
+import Swal from 'sweetalert2';
 
 export default function LoginForm() {
-  const handleSubmit = (event) => { 
-    event.preventDefault();
-    const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    console.log({email, password});
- 
+const router = useRouter();
+const handleLogin = async (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+  const email = form.email.value;
+  const password = form.password.value;
+
+  try {
+    const response = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (response.ok) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Login successful!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      router.push("/");
+      form.reset();
+      // Handle successful login
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Login failed. Please try again.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // Handle login error
+    }
+  } catch (error) {
+    console.error("Login error:", error);
   }
+};
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleLogin} className="space-y-5">
       {/* Email Field */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -19,7 +55,7 @@ export default function LoginForm() {
         </label>
         <input
           type="email"
-          name='email'
+          name="email"
           onChange={(e) => setEmail(e.target.value)}
           required
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300 focus:outline-none"
@@ -34,7 +70,7 @@ export default function LoginForm() {
         </label>
         <input
           type="password"
-name='password'
+          name="password"
           onChange={(e) => setPassword(e.target.value)}
           required
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300 focus:outline-none"
@@ -49,6 +85,7 @@ name='password'
       >
         Login
       </button>
+      <GoogleLogin />
     </form>
   );
 }

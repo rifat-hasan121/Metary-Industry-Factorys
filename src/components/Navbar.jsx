@@ -1,14 +1,19 @@
 "use client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Navbar() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
   const links = (
     <>
       <li>
         {" "}
-        <a href="">HOME</a>
+        <a href="/">HOME</a>
       </li>
       <li>
         <a href="">SERVICES</a>
@@ -64,16 +69,32 @@ export default function Navbar() {
       </div>
       <div className="navbar-end">
         <div className="flex items-center gap-4">
-          <Link href="/register">
-          <button className="btn bg-[#fc5220] rounded-xl text-white text-md md:text-lg ">
-            Sign In
-            </button>
-          </Link>
-          <Link href="/login">
-          <button className="btn bg-[#fc5220] rounded-xl text-white text-md md:text-lg ">
-            LogIn
-            </button>
-          </Link>
+          {status === "authenticated" ? (
+            <>
+              <button
+                className="btn bg-[#fc5220] rounded-xl text-white text-md md:text-lg "
+                onClick={() => {
+                  signOut();
+                  router.push("/login");
+                }}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/register">
+                <button className="btn bg-[#fc5220] rounded-xl text-white text-md md:text-lg ">
+                  Sign In
+                </button>
+              </Link>
+              <Link href="/login">
+                <button className="btn bg-[#fc5220] rounded-xl text-white text-md md:text-lg ">
+                  LogIn
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

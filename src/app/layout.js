@@ -22,16 +22,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <NextAuthSectionProvider>
+     
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <NextAuthSectionProvider>
         <Navbar/>
         {children}
           <Footer />
+        </NextAuthSectionProvider>
     
         </body>
-      </NextAuthSectionProvider>
     </html>
   );
 }
