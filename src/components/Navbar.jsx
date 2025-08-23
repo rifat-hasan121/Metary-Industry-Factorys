@@ -16,13 +16,16 @@ export default function Navbar() {
         <a href="/">HOME</a>
       </li>
       <li>
-        <a href="">SERVICES</a>
+        <Link href="/products">SERVICES</Link>
       </li>
       <li>
         <a href="">PAGES</a>
       </li>
       <li>
         <a href="">CONTACT</a>
+      </li>
+      <li>
+        <Link href="/dashboard/addProducts">Add Products</Link>
       </li>
     </>
   );
